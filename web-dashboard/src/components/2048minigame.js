@@ -30,8 +30,13 @@ function getEmptyBoard() {
   const React2048 = () => {
     const [board, setBoard] = useState(addRandom(addRandom(getEmptyBoard())));
     const [score, setScore] = useState(0);
+    const [gameOver, setGameOver] = useState(false)
+    const [victory, setVictory] = useState(false)
   
     const handleKeyDown = (e) => {
+
+        if(gameOver || victory) {return}
+
       const move = (dir) => {
         let rotated = rotateBoard(board, dir);
         let [collapsed, points] = collapseBoard(rotated);
@@ -50,11 +55,30 @@ function getEmptyBoard() {
   
         const [movedBoard, points, changed] = move(direction);
         if (changed) {
+          const newBoard = addRandom(movedBoard)
           setScore(score + points);
           setBoard(addRandom(movedBoard));
+
+          // Check victory
+        if (newBoard.flat().includes(2048)) {
+            setVictory(true);
+          }
+  
+          // Check game over
+          if (!canMove(newBoard)) {
+            setGameOver(true);
+          }
+
         }
       }
     };
+
+    const restartGame = () => {
+        setBoard(addRandom(addRandom(getEmptyBoard())));
+        setScore(0);
+        setGameOver(false);
+        setVictory(false);
+      }
   
     useEffect(() => {
       window.addEventListener("keydown", handleKeyDown);
@@ -72,6 +96,12 @@ function getEmptyBoard() {
             </div>
           ))}
         </div>
+
+        <button className="restart-button" onClick={restartGame}>Restart</button>
+
+        {victory && <div className="victory overlay">You win :)</div>}
+        {gameOver && <div className="gameOver overlay">Game Over :(</div>}
+
       </div>
     );
   };
@@ -109,6 +139,17 @@ function getEmptyBoard() {
       return [...filtered.filter((val) => val !== 0), ...Array(SIZE).fill(0)].slice(0, SIZE);
     });
     return [newBoard, score];
+  }
+
+  function canMove(board) {
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        if (board[r][c] === 0) return true;
+        if (c < SIZE - 1 && board[r][c] === board[r][c + 1]) return true;
+        if (r < SIZE - 1 && board[r][c] === board[r + 1][c]) return true;
+      }
+    }
+    return false;
   }
   
   export default React2048;

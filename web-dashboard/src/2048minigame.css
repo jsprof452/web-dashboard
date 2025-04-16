@@ -39,3 +39,44 @@
     font-size: 18px;
     color: white;
   }
+
+  .restart-button {
+    margin-top: 20px;
+    padding: 10px 16px;
+    background-color: #666;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .restart-button:hover {
+    background-color: #888;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(30, 30, 30, 0.95);
+    padding: 40px;
+    border-radius: 12px;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    z-index: 10;
+    text-align: center;
+    width: 260px;
+  }
+  
+  .victory {
+    border: 3px solid gold;
+    box-shadow: 0 0 20px gold;
+  }
+  
+  .gameOver {
+    border: 3px solid red;
+    box-shadow: 0 0 20px red;
+  }
