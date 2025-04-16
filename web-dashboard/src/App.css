@@ -6,7 +6,8 @@
 
 
 .App-header {
-  background-image: url("./assets/mountain.jpg");
+  /* background-image: url("./assets/mountain.jpg"); */
+  background-color: white;
   background-repeat: no-repeat;
   background-position: center;
   min-height: 100vh;

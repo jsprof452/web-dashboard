@@ -1,4 +1,5 @@
 import './App.css';
+import React2048 from "./components/2048minigame.js"
 
 function App() {
 
@@ -29,6 +30,8 @@ function App() {
         <p>{days[day]}, {date}</p>
 
       </header>
+
+      <React2048 />
     </div>
   );
 }
